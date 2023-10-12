@@ -1,100 +1,12 @@
-<html><head><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-E41YYW85JG&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-M6Z7PLL"></script><script>
-  function insertScript(w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({"gtm.start": new Date().getTime(), event: "gtm.js"});
-    var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-    j.async = true;
-    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-    f.parentNode.insertBefore(j, f);
-  }
+<html><head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1Q4FT4527D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  function getURLParameters() {
-    var paramMap = {}
-    var param = location.href.substr(location.href.indexOf("?") + 1)
-    var paramList = param.split("&")
+  gtag('config', 'G-1Q4FT4527D');
+</script>
 
-    paramList.forEach((obj, idx) => {
-      var sep = obj.split("=")
-      try {
-        paramMap[sep[0]] = eval(sep[1])
-      } catch {
-        paramMap[sep[0]] = sep[1]
-      }
-    })
-    return paramMap
-  }
-
-  function isEmpty(str) {
-    return typeof str == "undefined" || str == null || str === "";
-  }
-
-  function addCookie(key, value) {
-    document.cookie = key + "=" + value + ";path=/;domain=.lotteon.com;";
-  }
-
-  async function lotteonLiveInit() {
-
-    var urlParams = new URLSearchParams(location.search);
-    var broadcastNo = urlParams.get("broadcast");
-    var directBCNo = urlParams.get("direct");
-    var fcParam = urlParams.get("fc");
-    var chNo = urlParams.get("ch_no");
-    var chDtlNo = urlParams.get("ch_dtl_no");
-    var chCsfCd = urlParams.get("ch_csf_cd");
-    var chTypCd = urlParams.get("ch_typ_cd");
-    var pcsGrp = urlParams.get("pcs_grp");
-    var accessKey = "";
-
-    try {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://pbf.lotteon.com/display/v1/premium/liveshop/rsaCryptor?partnerId='
-          + directBCNo.substr(2, 7));
-      xhr.setRequestHeader('Accept', 'application/json');
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.withCredentials = true;
-      xhr.send();
-
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.response);
-          accessKey = response.data.jwttoken;
-          if (window.performance && !(window.performance && window.performance.navigation.type == 2)
-              && directBCNo) {
-            // directBCNo = null;
-            // https://player.sauceflex.com/broadcast/lklotteon-a81b3bf0cd9f4628b6070db2df2a4df7?
-            if (directBCNo == "lklotteon-5dead70ff0c141f0aa4ee3eaf98e5af5") {
-              directBCNo = "lklotteon-9aed38594f774835a260e9a4ff7a24a8";
-            }
-
-            if (!isEmpty(chNo)) {
-              addCookie("ch_no", chNo);
-            }
-
-            if (!isEmpty(chDtlNo)) {
-              addCookie("ch_dtl_no", chDtlNo);
-            }
-
-            setTimeout(function () {
-              if (directBCNo.substr(2, 7) == "ellotte") {
-                location.href = "https://player.sauceflex.com/broadcast/" + directBCNo
-                    + "?accessToken=" + accessKey + "&planId=107163&fc=" + fcParam;
-              } else if (directBCNo.substr(2, 7) == "lotteon") {
-                location.href = "https://player.sauceflex.com/broadcast/" + directBCNo
-                    + "?accessToken=" + accessKey + "&planId=107164&fc=" + fcParam;
-              }
-            }, 700);
-          }
-        } else {
-          console.error(xhr.status, xhr.statusText);
-        }
-      };
-    } catch (err) {
-      console.log("rsaCryptor100live Error : ", err);
-    }
-  }
-
-  insertScript(window, document, "script", "dataLayer", "GTM-M6Z7PLL");
-  lotteonLiveInit();
-</script></head><body></body></html>
+</head><body></body></html>
